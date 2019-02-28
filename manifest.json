@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Data Analysis tools for Web",
+  "description": "Data Analysis tool for Price comparison ",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "*://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/marketplace/*",
+        "http://it.emis-repid.org/",
+        "https://www.ebay.com/*",
+        "https://www.alcott.eu/*","https://www.alcott.eu/*",
+        "https://www.hertz.com/*",
+        "https://us.benetton.com/men-special-knitwear/*"
+      ],
+      "js": [
+        "jQuery.js",
+        "popup.js"
+      ]
+    }
+  ]
+}
