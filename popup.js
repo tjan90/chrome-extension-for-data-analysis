@@ -249,10 +249,11 @@ $("*").on('dblclick',function(e) {
         console.log(parent_tag_id+"- parent tag ID\n");
         //console.log(parent_tag+"- parent tag \n");
         //console.log(child_tag+"- child tag");
-        //console.log(child_tag_id+"- child tag ID -\n"+child_tag_class+"Child Tag Class");
+        console.log(child_tag_id+"- child tag ID -\n"+child_tag_class+"Child Tag Class");
         var nodes= document.querySelectorAll('#'+parent_tag_id+' > *');
-        var last_child = nodes[0].lastElementChild.innerText;
-        console.log(last_child);
+        var ptag = "#"+parent_tag_id;
+        var depth = $(this,ptag).parents(parent_tag).length;
+        console.log('dpeth : '+depth);
         for(var i = 0 ; i < nodes.length ; i++) {
              var last_child = nodes[i].lastElementChild.innerText;
              console.log(last_child);
@@ -268,10 +269,7 @@ $("*").on('dblclick',function(e) {
     alert(evt.target.tagName);
 })*/
 
-var nodes= document.querySelectorAll('#offerPrice_256516');
-
-for(var i = 0 ; i < nodes.length ; i++) {
-    nodes[i].childNodes;
-    }
+//function for getting the depth
+var depth = $("#my-element","#ContextContainerID").parents("ul").length;
 
 
