@@ -1,4 +1,4 @@
-console.log('extension Loaded-0.1')
+console.log('extension Loaded-0.1');
 /*function getCurrentTabUrl(callback){
     var queryinfo = {active:true,currentWindowId:true};
     chrome.tabs.query(queryinfo,function (tabs) {
@@ -252,11 +252,28 @@ $("*").on('dblclick',function(e) {
         console.log(child_tag_id+"- child tag ID -\n"+child_tag_class+"Child Tag Class");
         var nodes= document.querySelectorAll('#'+parent_tag_id+' > *');
         var ptag = "#"+parent_tag_id;
-        var depth = $(this,ptag).parents(parent_tag).length;
+        var body = document.getElementsByTagName('body');
+        //get depth b/w the two tags
+        var depth = $(this,body).parents('*').length;
         console.log('dpeth : '+depth);
+        //get index of the child
+        var position = $(this).parent(parent_tag_id).children().index(this);
+        console.log("position of child : "+position);
+        //.parents returns HTML collection
+        var p = $(this).parents('*').not('html').length;
+        var p_current = $(this).parent();
+        console.log(p);
+        var index = $(this).parent().index();
+
+        console.log(index);
+        for(var i = 0 ; i < p.length ; i++) {
+        //console.log(p[i]);
+
+        }
+
         for(var i = 0 ; i < nodes.length ; i++) {
              var last_child = nodes[i].lastElementChild.innerText;
-             console.log(last_child);
+             //console.log(last_child);
         }
             }
     else{
@@ -264,12 +281,14 @@ $("*").on('dblclick',function(e) {
     }
 });
 //Function for getting Element tag name
-/*$("*").on('dblclick',function(evt) {
+/*
+$("*").on('dblclick',function(evt) {
     evt.stopPropagation();
     alert(evt.target.tagName);
-})*/
+})
+*/
 
-//function for getting the depth
+//function for getting the depth///////////////////////////////////
+/*
 var depth = $("#my-element","#ContextContainerID").parents("ul").length;
-
-
+*/
