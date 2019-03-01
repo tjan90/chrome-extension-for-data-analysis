@@ -53,7 +53,7 @@ console.log(checkPageButton.innerHTML);*/
 /*checkPageButton.addEventListener('click', function() {}
 */
 
-console.log("extension loaded-0.2");
+console.log("extension loaded-0.2.0");
 //let price = document.querySelectorAll("._f3l, ._3fcx, ._4x3g");
    // let price = document.querySelectorAll("._f3l");
    // console.log(price);
@@ -251,9 +251,11 @@ $("*").on('dblclick',function(e) {
         //console.log(child_tag+"- child tag");
         //console.log(child_tag_id+"- child tag ID -\n"+child_tag_class+"Child Tag Class");
         var nodes= document.querySelectorAll('#'+parent_tag_id+' > *');
-
+        var last_child = nodes[0].lastElementChild.innerText;
+        console.log(last_child);
         for(var i = 0 ; i < nodes.length ; i++) {
-            nodes[i].lastElementChild.innerText;
+             var last_child = nodes[i].lastElementChild.innerText;
+             console.log(last_child);
         }
             }
     else{
