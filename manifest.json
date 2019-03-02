@@ -22,7 +22,8 @@
         "https://www.ebay.com/*",
         "https://www.alcott.eu/*","https://www.alcott.eu/*",
         "https://www.hertz.com/*",
-        "https://us.benetton.com/men-special-knitwear/*"
+        "https://us.benetton.com/men-special-knitwear/*",
+        "https://www2.hm.com/*"
       ],
       "js": [
         "jQuery.js",

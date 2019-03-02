@@ -261,11 +261,15 @@ $("*").on('dblclick',function(e) {
         console.log("position of child : "+position);
         //.parents returns HTML collection
         var p = $(this).parents('*').not('html').length;
-        var p_current = $(this).parent();
-        console.log(p);
+        var p_current = $(this).index(this);
+        console.log('current index: '+p_current);
         var index = $(this).parent().index();
-
-        console.log(index);
+        var index2 = $(this).parent().parent().index();
+        //var a = $(this).parent.childElementCount;
+        var product = $(this).closest(' li').index();
+        console.log('product index: '+product);
+        console.log('parent index : '+index);
+        console.log('parent index 2 : '+index2);
         for(var i = 0 ; i < p.length ; i++) {
         //console.log(p[i]);
 
