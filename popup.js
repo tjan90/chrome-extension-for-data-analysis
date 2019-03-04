@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkPageButton.addEventListener('click', function() {
     alert('before condition check');
 
-    var queryinfo = {active:true,currentWindowId:true};
+    /*var queryinfo = {active:true,currentWindowId:true};
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
             // since only one tab should be active and in the current window at once
@@ -44,6 +44,17 @@ document.addEventListener('DOMContentLoaded', function() {
             var activeTabId = activeTab.url; // or do whatever you need
             alert(activeTabId);
 
+        });*/
+
+
+        chrome.storage.local.get(['links'], function(result) {
+            alert('Value of URL currently is ' + result.links);
+            link = result.link
+        });
+
+        chrome.storage.local.get(['id'], function(result) {
+            alert('Value ID currently is ' + result.id);
+            ptid = result.id;
         });
 
     /*var trace = document.getElementById('trace');
@@ -379,6 +390,7 @@ $("*").on('dblclick',function(e) {
         console.log('no selection made');
     }
 });
+
 
 
 //Function for getting Element tag name
