@@ -1,33 +1,88 @@
 console.log('extension Loaded-0.1');
+var value = 'checked';
+/*chrome.storage.local.get({'checkbox': value},function(result){
+   console.log('checkbox value is '+result.value);
+});*/
+/*$(this).click(function (){
+    console.log('hi')
+});*/
+
+/*$("*").on('dblclick',function(e) {
+    if (document.getElementById('trace').checked) {
+        alert("checked 2");
+
+    }
+});*/
 /*function getCurrentTabUrl(callback){
     var queryinfo = {active:true,currentWindowId:true};
     chrome.tabs.query(queryinfo,function (tabs) {
         var tab = tabs[0];
         var url = tab.url;
         callback(url);
+        console.log(url);
     })
 }*/
 //Working code for alerting URL/////////////////////////////////////////////////////////
-/*
+
+
+
 console.log('start');
+
+//alert('extension loaded1.0')
+
 document.addEventListener('DOMContentLoaded', function() {
-     var checkPageButton = document.getElementById('btn');
-     checkPageButton.addEventListener('click', function() {
-    //alert("Button Check1.1");
-    //chrome.tabs.getSelection(null,function(tabs){
-      chrome.tabs.query({active:true, currentWindow:true},function(tabs){
-          var tab = tabs[0];
-          var url = tab.url;
-          alert(url);
-          let price = document.querySelectorAll("._f3l, ._3fcx, ._4x3g");
-          alert(price);
-         // var play = document.getElementsByClassName('playbackSoundBadge__title');
-          //alert(play);
-      });
-     }, false);
-     // alert('Extension Check');
+     var checkPageButton = document.getElementById('btn1');
+    checkPageButton.addEventListener('click', function() {
+    alert('before condition check');
+
+    var queryinfo = {active:true,currentWindowId:true};
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+
+            // since only one tab should be active and in the current window at once
+            // the return variable should only have one entry
+            var activeTab = tabs[0];
+            var activeTabId = activeTab.url; // or do whatever you need
+            alert(activeTabId);
+
+        });
+
+    /*var trace = document.getElementById('trace');
+        if(document.querySelector('#trace').checked){
+            value = 'checked'
+            alert('Trace Enable');
+            chrome.storage.local.set({'checkbox': value},function(){
+            console.log('checked values is checked'+ value);
+        });
+        }
+        else {
+            value = 'unchecked';
+            alert('trace disable');
+            chrome.storage.local.set({'checkbox': value},function(){
+               console.log('value changed to unchecked');
+            });
+
+        }*/
+     },false);
  }, false);
+
+//code for storing Variable
+/*
+
+chrome.storage.local.set({tracekey: value}, function() {
+    console.log('Value is set to ' + value);
+});
+
+chrome.storage.local.get(['tracekey'], function(result) {
+    console.log('Value currently is ' + result.key);
+});
 */
+
+
+/*
+$('input[type="checkbox"]').change(function() {
+    alert('aaa');
+});*/
+
 
 
 // window.addEventListener("load", function(event) {
@@ -229,7 +284,7 @@ $("div,p,span,section,h1,h2,h3,h4,h5,h6,strong,font").dblclick(function(e) {
 });*/
 
 //get Child ID with tag name and its parent tag and ID
-var text;
+var text = '';
 $("*").on('dblclick',function(e) {
 //$(this).dblclick(function(e) {
     var parent_tag, parent_tag_id, child_tag, child_tag_id, child_tag_class = '';
@@ -288,13 +343,44 @@ $("*").on('dblclick',function(e) {
     }// end of for loop////
         console.log(array);
 
-       var a = $('body').children().indexOf(0).children();
-        console.log(a);
+       //var a = $('body').children().indexOf(0).children();
+        //console.log();
+        var URL = $(location).attr('href');
+        /*chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            var activeTab = tabs[0];
+            var activeTabId = activeTab.url;
+            console.log(activeTabId);
+
+        });
+*/
+        chrome.storage.local.set({'links': URL}, function() {
+           // console.log('Value is set to ' + child_tag);
+        });
+
+        chrome.storage.local.set({'id': parent_tag_id}, function() {
+            // console.log('Value is set to ' + child_tag);
+        });
+
+        var links= '';
+        var ptid = '';
+        chrome.storage.local.get(['links'], function(result) {
+            console.log('Value of URL currently is ' + result.links);
+            link = result.link
+        });
+
+        chrome.storage.local.get(['id'], function(result) {
+            console.log('Value ID currently is ' + result.id);
+            ptid = result.id;
+        });
+
+        alert('link: '+URL+'- id : '+parent_tag_id);
             }
     else{
         console.log('no selection made');
     }
 });
+
+
 //Function for getting Element tag name
 /*
 $("*").on('dblclick',function(evt) {
@@ -307,3 +393,5 @@ $("*").on('dblclick',function(evt) {
 /*
 var depth = $("#my-element","#ContextContainerID").parents("ul").length;
 */
+
+
