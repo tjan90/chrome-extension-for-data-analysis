@@ -255,7 +255,7 @@ $("*").on('dblclick',function(e) {
         var body = document.getElementsByTagName('body');
         //get depth b/w the two tags
         var depth = $(this,body).parents('*').length;
-        console.log('dpeth : '+depth);
+        console.log('depth : '+depth);
         //get index of the child
         var position = $(this).parent(parent_tag_id).children().index(this);
         console.log("position of child : "+position);
@@ -264,21 +264,32 @@ $("*").on('dblclick',function(e) {
         var p_current = $(this).index(this);
         console.log('current index: '+p_current);
         var index = $(this).parent().index();
-        var index2 = $(this).parent().parent().index();
+        var parent_class = $(this).parent().attr('class');
+        var Grand_index = $(this).parent().parent().index();
+        var Grand_class = $(this).parent().parent().attr('class');
         //var a = $(this).parent.childElementCount;
         var product = $(this).closest(' li').index();
+        var parents = $(this).parents().index();
+
         console.log('product index: '+product);
         console.log('parent index : '+index);
-        console.log('parent index 2 : '+index2);
-        for(var i = 0 ; i < p.length ; i++) {
-        //console.log(p[i]);
+        console.log('parent class: '+parent_class);
+        console.log('Grand parent index: '+Grand_index);
+        console.log('Grand Parent Class: '+Grand_class);
+        console.log('parents : '+parents);
 
-        }
+// Array of all the parent indexes////////////////////////////////////////////////
+        // if equal sign of wrote with depth then the last element is -1
+        var array = [];
+        for(var i = 0 ; i < depth ; i++) {
+        var index_parent = $(this).parents().eq(i).index();
+        array[i] = index_parent;
+        //console.log(array[i]);
+    }// end of for loop////
+        console.log(array);
 
-        for(var i = 0 ; i < nodes.length ; i++) {
-             var last_child = nodes[i].lastElementChild.innerText;
-             //console.log(last_child);
-        }
+       var a = $('body').children().indexOf(0).children();
+        console.log(a);
             }
     else{
         console.log('no selection made');
