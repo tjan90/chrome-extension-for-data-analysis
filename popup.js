@@ -1,5 +1,39 @@
+if(chrome.storage.local.get){
+
+}
+var links = '';
+var id ='';
+
+chrome.storage.local.get(['links'], function(result) {
+    //alert('Value of URL currently is ' + result.links);
+    if(result.links !== '') {
+        links = result.links;
+    }
+
+});
+chrome.storage.local.get(['id'], function(result) {
+    alert('Value ID currently is ' + result.id);
+    id = result.id;
+});
+
+if(links==' ') {
+var win = window.open(links, '_blank');
+if (win) {
+    //Browser has allowed it to be opened
+    win.focus();
+} else {
+    //Browser has blocked it
+    alert('Please allow popups for this website');
+    }
+}
+/*
+if(links!= '') {
+    var price_check = $(id).innerText;
+}
+*/
+
 console.log('extension Loaded-0.1');
-var value = 'checked';
+
 /*chrome.storage.local.get({'checkbox': value},function(result){
    console.log('checkbox value is '+result.value);
 });*/
@@ -44,6 +78,16 @@ document.addEventListener('DOMContentLoaded', function() {
             var activeTabId = activeTab.url; // or do whatever you need
             alert(activeTabId);
 
+
+            chrome.storage.local.get(['links'], function(result) {
+                alert('Value of URL currently is ' + result.links);
+            });
+            chrome.storage.local.get(['id'], function(result) {
+                alert('Value ID currently is ' + result.id);
+
+            });
+
+
         });
 
     /*var trace = document.getElementById('trace');
@@ -66,16 +110,16 @@ document.addEventListener('DOMContentLoaded', function() {
  }, false);
 
 //code for storing Variable
-/*
 
+/*
 chrome.storage.local.set({tracekey: value}, function() {
     console.log('Value is set to ' + value);
 });
 
 chrome.storage.local.get(['tracekey'], function(result) {
     console.log('Value currently is ' + result.key);
-});
-*/
+});*/
+
 
 
 /*
@@ -353,24 +397,16 @@ $("*").on('dblclick',function(e) {
 
         });
 */
-        chrome.storage.local.set({'links': URL}, function() {
-           // console.log('Value is set to ' + child_tag);
-        });
+        chrome.storage.local.set({'links': URL});
 
-        chrome.storage.local.set({'id': parent_tag_id}, function() {
-            // console.log('Value is set to ' + child_tag);
-        });
+        chrome.storage.local.set({'id': parent_tag_id});
 
-        var links= '';
-        var ptid = '';
         chrome.storage.local.get(['links'], function(result) {
             console.log('Value of URL currently is ' + result.links);
-            link = result.link
         });
-
         chrome.storage.local.get(['id'], function(result) {
             console.log('Value ID currently is ' + result.id);
-            ptid = result.id;
+
         });
 
         alert('link: '+URL+'- id : '+parent_tag_id);
