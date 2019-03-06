@@ -1,31 +1,22 @@
-if(chrome.storage.local.get){
-
-}
 var links = '';
-var id ='';
+var id = '';
+chrome.storage.local.get(['links','id'],function(result){
 
-chrome.storage.local.get(['links'], function(result) {
-    //alert('Value of URL currently is ' + result.links);
-    if(result.links !== '') {
-        links = result.links;
-    }
-
-});
-chrome.storage.local.get(['id'], function(result) {
-    alert('Value ID currently is ' + result.id);
-    id = result.id;
+    windowOpen(result.links,result.id)
 });
 
-if(links==' ') {
+/*
+if(links!== undefined || ' ') {
 var win = window.open(links, '_blank');
 if (win) {
     //Browser has allowed it to be opened
     win.focus();
+    alert(links+'----- inside window');
 } else {
     //Browser has blocked it
     alert('Please allow popups for this website');
     }
-}
+}*/
 /*
 if(links!= '') {
     var price_check = $(id).innerText;
@@ -401,13 +392,11 @@ $("*").on('dblclick',function(e) {
 
         chrome.storage.local.set({'id': parent_tag_id});
 
-        chrome.storage.local.get(['links'], function(result) {
-            console.log('Value of URL currently is ' + result.links);
-        });
-        chrome.storage.local.get(['id'], function(result) {
-            console.log('Value ID currently is ' + result.id);
+        chrome.storage.local.get(['links','id'], function(result) {
+            console.log('Value of URL currently is ' + result.links+'\n id of the element'+result.id);
 
         });
+
 
         alert('link: '+URL+'- id : '+parent_tag_id);
             }
@@ -415,7 +404,17 @@ $("*").on('dblclick',function(e) {
         console.log('no selection made');
     }
 });
-
+//Function call for Opening Link and getting price in new tab///////////////////////////////////
+function windowOpen(link, id) {
+  var win = window.open(link, '_blank')
+    if(win){
+        win.focus();
+        win.alert(link+'xxx this is the link')
+        //alert(link+'xxx this is the link');
+        var price = document.getElementById(id).innerText;
+        win.alert(price+'')
+    }
+};
 
 //Function for getting Element tag name
 /*
