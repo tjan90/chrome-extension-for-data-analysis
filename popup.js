@@ -1,9 +1,11 @@
+
 var links = '';
 var id = '';
 chrome.storage.local.get(['links','id'],function(result){
-
     windowOpen(result.links,result.id)
+    return;
 });
+
 
 /*
 if(links!== undefined || ' ') {
@@ -48,13 +50,9 @@ console.log('extension Loaded-0.1');
     })
 }*/
 //Working code for alerting URL/////////////////////////////////////////////////////////
-
-
+/*
 
 console.log('start');
-
-//alert('extension loaded1.0')
-
 document.addEventListener('DOMContentLoaded', function() {
      var checkPageButton = document.getElementById('btn1');
     checkPageButton.addEventListener('click', function() {
@@ -81,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         });
 
-    /*var trace = document.getElementById('trace');
+    var trace = document.getElementById('trace');
         if(document.querySelector('#trace').checked){
             value = 'checked'
             alert('Trace Enable');
@@ -96,9 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
                console.log('value changed to unchecked');
             });
 
-        }*/
+        }
      },false);
  }, false);
+*/
 
 //code for storing Variable
 
@@ -407,13 +406,12 @@ $("*").on('dblclick',function(e) {
 //Function call for Opening Link and getting price in new tab///////////////////////////////////
 function windowOpen(link, id) {
   var win = window.open(link, '_blank')
-    if(win){
         win.focus();
         win.alert(link+'xxx this is the link')
         //alert(link+'xxx this is the link');
         var price = document.getElementById(id).innerText;
         win.alert(price+'')
-    }
+        return;
 };
 
 //Function for getting Element tag name
