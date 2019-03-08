@@ -1,9 +1,16 @@
 
-var links = '';
-var id = '';
-chrome.storage.local.get(['links','id'],function(result){
-    windowOpen(result.links,result.id)
-    return;
+
+chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
+    console.log(result.counter);
+    if (result.counter === 1) {
+
+    windowOpen(result.links, result.id, result.pr_price)
+      chrome.storage.local.remove(['counter'],function(result){
+            console.log(result.counter);
+      });
+
+}
+
 });
 
 
@@ -144,8 +151,8 @@ console.log(checkPageButton.innerHTML);*/
 
 console.log("extension loaded-0.2.0");
 //let price = document.querySelectorAll("._f3l, ._3fcx, ._4x3g");
-   // let price = document.querySelectorAll("._f3l");
-   // console.log(price);
+// let price = document.querySelectorAll("._f3l");
+// console.log(price);
 //$( document ).ready(function() {
 //     console.log( "ready!" );
 //     $(".SECONDARY_INFO").click(function (){
@@ -160,23 +167,23 @@ console.log("extension loaded-0.2.0");
 
 
 //Data Retrieval facebook Marketplace/////////////////////////////////////////////////////
-    /*function defer(method) {
-        if ($("section._7yd._4e37 > div > div").length !== 0) {
-            method();
-        } else {
-            setTimeout(function() { defer(method) }, 1000);
-        }
+/*function defer(method) {
+    if ($("section._7yd._4e37 > div > div").length !== 0) {
+        method();
+    } else {
+        setTimeout(function() { defer(method) }, 1000);
     }
+}
 
-    let callback = () => {
-        let price = document.getElementsByClassName('_f3l _3fcx _4x3g');
-        let name = document.getElementsByClassName('_2tux _214v');
+let callback = () => {
+    let price = document.getElementsByClassName('_f3l _3fcx _4x3g');
+    let name = document.getElementsByClassName('_2tux _214v');
 
-        for(elt in price,name){
-        console.log(price[elt].innerHTML +'-'+name[elt].innerHTML);
-        }
-        };
-    defer(callback);
+    for(elt in price,name){
+    console.log(price[elt].innerHTML +'-'+name[elt].innerHTML);
+    }
+    };
+defer(callback);
 
 });*/
 
@@ -360,24 +367,25 @@ $("*").on('dblclick',function(e) {
         var product = $(this).closest(' li').index();
         var parents = $(this).parents().index();
 
+
         console.log('product index: '+product);
         console.log('parent index : '+index);
         console.log('parent class: '+parent_class);
         console.log('Grand parent index: '+Grand_index);
-        console.log('Grand Parent Class: '+Grand_class);
+    //    console.log('Grand Parent Class: '+Grand_class);
         console.log('parents : '+parents);
 
 // Array of all the parent indexes////////////////////////////////////////////////
         // if equal sign of wrote with depth then the last element is -1
         var array = [];
         for(var i = 0 ; i < depth ; i++) {
-        var index_parent = $(this).parents().eq(i).index();
-        array[i] = index_parent;
-        //console.log(array[i]);
-    }// end of for loop////
+            var index_parent = $(this).parents().eq(i).index();
+            array[i] = index_parent;
+            //console.log(array[i]);
+        }// end of for loop////
         console.log(array);
 
-       //var a = $('body').children().indexOf(0).children();
+        //var a = $('body').children().indexOf(0).children();
         //console.log();
         var URL = $(location).attr('href');
         /*chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -387,31 +395,45 @@ $("*").on('dblclick',function(e) {
 
         });
 */
+
+        var product_price = document.getElementById(parent_tag_id).innerText;
+        console.log('product price : '+product_price);
+
         chrome.storage.local.set({'links': URL});
-
+        chrome.storage.local.set({'pr_price': product_price});
         chrome.storage.local.set({'id': parent_tag_id});
+        chrome.storage.local.set({'counter': 1});
 
-        chrome.storage.local.get(['links','id'], function(result) {
-            console.log('Value of URL currently is ' + result.links+'\n id of the element'+result.id);
-
+        chrome.storage.local.get(['links','id','counter','pr_price'], function(result) {
+            console.log('Value of URL currently is ' + result.links+'\n id of the element'+result.id+'\n counter value: '+result.counter);
+            console.log(result.pr_price);
         });
 
 
+
+
         alert('link: '+URL+'- id : '+parent_tag_id);
-            }
+    }
     else{
         console.log('no selection made');
     }
 });
 //Function call for Opening Link and getting price in new tab///////////////////////////////////
-function windowOpen(link, id) {
-  var win = window.open(link, '_blank')
-        win.focus();
-        win.alert(link+'xxx this is the link')
-        //alert(link+'xxx this is the link');
-        var price = document.getElementById(id).innerText;
-        win.alert(price+'')
-        return;
+
+function windowOpen(link, id, pr_price) {
+    var win = window.open(link, '_blank')
+    win.focus();
+    //win.alert(link+'xxx this is the link')
+    //alert(link+'xxx this is the link');
+ /*   var price = document.getElementById(id).innerText;
+    if(price==pr_price){
+        alert('price unchanged');
+    }
+    win.console.log(price+' previous price');*/
+
+    //win.alert(price+'')
+
+
 };
 
 //Function for getting Element tag name
@@ -426,5 +448,4 @@ $("*").on('dblclick',function(evt) {
 /*
 var depth = $("#my-element","#ContextContainerID").parents("ul").length;
 */
-
 
