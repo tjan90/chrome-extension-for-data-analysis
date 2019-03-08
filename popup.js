@@ -395,6 +395,7 @@ $("*").on('dblclick',function(e) {
 
         });
 */
+
         var product_price = document.getElementById(parent_tag_id).innerText;
         console.log('product price : '+product_price);
 
@@ -409,6 +410,8 @@ $("*").on('dblclick',function(e) {
         });
 
 
+
+
         alert('link: '+URL+'- id : '+parent_tag_id);
     }
     else{
@@ -416,6 +419,7 @@ $("*").on('dblclick',function(e) {
     }
 });
 //Function call for Opening Link and getting price in new tab///////////////////////////////////
+
 function windowOpen(link, id, pr_price) {
     var win = window.open(link, '_blank')
     win.focus();
@@ -428,6 +432,7 @@ function windowOpen(link, id, pr_price) {
     win.console.log(price+' previous price');*/
 
     //win.alert(price+'')
+
 
 };
 

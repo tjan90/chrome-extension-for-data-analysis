@@ -2851,54 +2851,6 @@
         } ) );
     };
 
-    jQuery.fn.extend( {
-        find: function( selector ) {
-            var i, ret,
-                len = this.length,
-                self = this;
-
-            if ( typeof selector !== "string" ) {
-                return this.pushStack( jQuery( selector ).filter( function() {
-                    for ( i = 0; i < len; i++ ) {
-                        if ( jQuery.contains( self[ i ], this ) ) {
-                            return true;
-                        }
-                    }
-                } ) );
-            }
-
-            ret = this.pushStack( [] );
-
-            for ( i = 0; i < len; i++ ) {
-                jQuery.find( selector, self[ i ], ret );
-            }
-
-            return len > 1 ? jQuery.uniqueSort( ret ) : ret;
-        },
-        filter: function( selector ) {
-            return this.pushStack( winnow( this, selector || [], false ) );
-        },
-        not: function( selector ) {
-            return this.pushStack( winnow( this, selector || [], true ) );
-        },
-        is: function( selector ) {
-            return !!winnow(
-                this,
-
-                // If this is a positional/relative selector, check membership in the returned set
-                // so $("p:first").is("p:last") won't return true for a doc with two "p".
-                typeof selector === "string" && rneedsContext.test( selector ) ?
-                    jQuery( selector ) :
-                    selector || [],
-                false
-            ).length;
-        }
-    } );
-
-
-// Initialize a jQuery object
-
-
 // A central reference to the root jQuery(document)
     var rootjQuery,
 
@@ -3006,6 +2958,54 @@
 
             return jQuery.makeArray( selector, this );
         };
+
+
+    jQuery.fn.extend( {
+        find: function( selector ) {
+            var i, ret,
+                len = this.length,
+                self = this;
+
+            if ( typeof selector !== "string" ) {
+                return this.pushStack( jQuery( selector ).filter( function() {
+                    for ( i = 0; i < len; i++ ) {
+                        if ( jQuery.contains( self[ i ], this ) ) {
+                            return true;
+                        }
+                    }
+                } ) );
+            }
+
+            ret = this.pushStack( [] );
+
+            for ( i = 0; i < len; i++ ) {
+                jQuery.find( selector, self[ i ], ret );
+            }
+
+            return len > 1 ? jQuery.uniqueSort( ret ) : ret;
+        },
+        filter: function( selector ) {
+            return this.pushStack( winnow( this, selector || [], false ) );
+        },
+        not: function( selector ) {
+            return this.pushStack( winnow( this, selector || [], true ) );
+        },
+        is: function( selector ) {
+            return !!winnow(
+                this,
+
+                // If this is a positional/relative selector, check membership in the returned set
+                // so $("p:first").is("p:last") won't return true for a doc with two "p".
+                typeof selector === "string" && rneedsContext.test( selector ) ?
+                    jQuery( selector ) :
+                    selector || [],
+                false
+            ).length;
+        }
+    } );
+
+
+// Initialize a jQuery object
 
 // Give the init function the jQuery prototype for later instantiation
     init.prototype = jQuery.fn;
