@@ -1,18 +1,37 @@
 
+x = '';
+a='';
+//chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
+chrome.storage.local.get(null,function(result) {
+    alert(JSON.stringify(result));
 
-chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
-    console.log(result.counter);
-    if (result.counter === 1) {
+
+    chrome.storage.local.get('[visit_link]',function(res){
+            return res;
+    });
+    //chrome.storage.local.get('visit_link')
+    //alert('before if : '+a);
+
+    alert(r);
+
+    if ( r === 'undefined' || r !== result.links) {
+        chrome.storage.local.set({'visit_links': result.links});
+
+       // alert(a);
 
     windowOpen(result.links, result.id, result.pr_price)
-      chrome.storage.local.remove(['counter'],function(result){
-            console.log(result.counter);
-      });
 
 }
 
 });
 
+
+function getStorageValueBykey(theKey){
+    var r;
+    chrome.storage.local.get('visit_link',function(res){
+
+    });
+}
 
 /*
 if(links!== undefined || ' ') {
@@ -328,7 +347,7 @@ $("div,p,span,section,h1,h2,h3,h4,h5,h6,strong,font").dblclick(function(e) {
 var text = '';
 $("*").on('dblclick',function(e) {
 //$(this).dblclick(function(e) {
-    var parent_tag, parent_tag_id, child_tag, child_tag_id, child_tag_class = '';
+    var parent_tag, parent_tag_id, child_tag, child_tag_id, child_tag_class,parent_tag_class = '';
     e.stopPropagation();
     //text = $(e.target.tagName).toString();
 
@@ -340,25 +359,27 @@ $("*").on('dblclick',function(e) {
         //var child_tag_id = $(this).tag
         //var child_tag_id2 = child_tag_id.attr('class');
         //var child_tag_id =
+
         parent_tag_id = $(this).closest(child_tag).attr('id');
+        if(parent_tag_id == undefined){
+            parent_tag_id = $(this).closest(child_tag).attr('class');
+        }
+        parent_tag_class  = $(this).closest(child_tag).attr('class');
         parent_tag = $(this).closest(child_tag).prop('tagName');
-        console.log(parent_tag_id+"- parent tag ID\n");
+
         //console.log(parent_tag+"- parent tag \n");
         //console.log(child_tag+"- child tag");
-        console.log(child_tag_id+"- child tag ID -\n"+child_tag_class+"Child Tag Class");
+
         var nodes= document.querySelectorAll('#'+parent_tag_id+' > *');
         var ptag = "#"+parent_tag_id;
         var body = document.getElementsByTagName('body');
         //get depth b/w the two tags
         var depth = $(this,body).parents('*').length;
-        console.log('depth : '+depth);
         //get index of the child
         var position = $(this).parent(parent_tag_id).children().index(this);
-        console.log("position of child : "+position);
         //.parents returns HTML collection
         var p = $(this).parents('*').not('html').length;
         var p_current = $(this).index(this);
-        console.log('current index: '+p_current);
         var index = $(this).parent().index();
         var parent_class = $(this).parent().attr('class');
         var Grand_index = $(this).parent().parent().index();
@@ -368,11 +389,16 @@ $("*").on('dblclick',function(e) {
         var parents = $(this).parents().index();
 
 
+        console.log('current index: '+p_current);
+        console.log('depth : '+depth);
+        console.log(child_tag_id+"- child tag ID -\n"+child_tag_class+"Child Tag Class");
+        console.log(parent_tag_id+"- parent tag ID\n");
+        console.log(parent_tag_class+' : parent tag class');
         console.log('product index: '+product);
         console.log('parent index : '+index);
         console.log('parent class: '+parent_class);
         console.log('Grand parent index: '+Grand_index);
-    //    console.log('Grand Parent Class: '+Grand_class);
+  //    console.log('Grand Parent Class: '+Grand_class);
         console.log('parents : '+parents);
 
 // Array of all the parent indexes////////////////////////////////////////////////
@@ -396,23 +422,32 @@ $("*").on('dblclick',function(e) {
         });
 */
 
-        var product_price = document.getElementById(parent_tag_id).innerText;
-        console.log('product price : '+product_price);
+//        var product_price = document.getElementById(parent_tag_id).innerText;
+        if(child_tag_id == undefined){
+            product_price_cl = document.getElementById(parent_tag_id);
+        }
+        var product_price_cl = document.getElementsByClassName(parent_tag_class);
+        console.log(product_price_cl[product].innerText+'Price H&M');
+        //console.log(product_price.split('€'));
+        console.log('product price : '+product_price_cl);
+        //index items not accurate becuase of Data Index specified in some sites.
+        var sp_price = product_price_cl[product].innerText.split('€');
+        //console.log(hasDigitFind(sp_price));
+        console.log(sp_price[0]);
 
-        chrome.storage.local.set({'links': URL});
-        chrome.storage.local.set({'pr_price': product_price});
+        chrome.storage.local.set({'links': URL, 'id': parent_tag_id});
+        /*chrome.storage.local.set({'pr_price': product_price_cl});
         chrome.storage.local.set({'id': parent_tag_id});
         chrome.storage.local.set({'counter': 1});
-
-        chrome.storage.local.get(['links','id','counter','pr_price'], function(result) {
+        */chrome.storage.local.get(['links','id','counter','pr_price'], function(result) {
             console.log('Value of URL currently is ' + result.links+'\n id of the element'+result.id+'\n counter value: '+result.counter);
-            console.log(result.pr_price);
+            //console.log(result.pr_price);
         });
 
 
 
 
-        alert('link: '+URL+'- id : '+parent_tag_id);
+        //alert('link: '+URL+'- id : '+parent_tag_id);
     }
     else{
         console.log('no selection made');
@@ -423,18 +458,41 @@ $("*").on('dblclick',function(e) {
 function windowOpen(link, id, pr_price) {
     var win = window.open(link, '_blank')
     win.focus();
-    //win.alert(link+'xxx this is the link')
+    if(win){//win.alert(link+'xxx this is the link')
     //alert(link+'xxx this is the link');
- /*   var price = document.getElementById(id).innerText;
-    if(price==pr_price){
+    var price = document.getElementById(id).innerText;
+    //win.alert('previous price : '+pr_price+'\ncurrent price : '+price);
+    var sp_price = price.split('€');
+    var sp_pr_price = pr_price.split('€');
+    //win.alert(sp_price+'\n'+sp_pr_price);
+        if(price.toString()=== pr_price.toString()){
         alert('price unchanged');
+     }
+    win.console.log(price+' previous price');
     }
-    win.console.log(price+' previous price');*/
-
     //win.alert(price+'')
 
 
 };
+
+function hasDigitFind(_str_) {
+    this._code_ = 10;  /*When empty string found*/
+    var _strArray = [];
+
+    if (_str_ !== '' || _str_ !== undefined || _str_ !== null) {
+        _strArray = _str_.split('');
+        for(var i = 0; i < _strArray.length; i++) {
+            if(!isNaN(parseInt(_strArray[i]))) {
+                this._code_ = -1;
+                break;
+            } else {
+                this._code_ = 1;
+            }
+        }
+
+    }
+    return this._code_;
+}
 
 //Function for getting Element tag name
 /*
