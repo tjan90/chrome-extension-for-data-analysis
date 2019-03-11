@@ -2,6 +2,8 @@
 x = '';
 a='';
 //chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
+
+/*
 chrome.storage.local.get(null,function(result) {
     alert(JSON.stringify(result));
 
@@ -32,6 +34,7 @@ function getStorageValueBykey(theKey){
 
     });
 }
+*/
 
 /*
 if(links!== undefined || ' ') {
@@ -361,9 +364,9 @@ $("*").on('dblclick',function(e) {
         //var child_tag_id =
 
         parent_tag_id = $(this).closest(child_tag).attr('id');
-        if(parent_tag_id == undefined){
+       /* if(parent_tag_id == undefined){
             parent_tag_id = $(this).closest(child_tag).attr('class');
-        }
+        }*/
         parent_tag_class  = $(this).closest(child_tag).attr('class');
         parent_tag = $(this).closest(child_tag).prop('tagName');
 
@@ -404,12 +407,39 @@ $("*").on('dblclick',function(e) {
 // Array of all the parent indexes////////////////////////////////////////////////
         // if equal sign of wrote with depth then the last element is -1
         var array = [];
+        var array_tag = [];
         for(var i = 0 ; i < depth ; i++) {
             var index_parent = $(this).parents().eq(i).index();
             array[i] = index_parent;
             //console.log(array[i]);
         }// end of for loop////
         console.log(array);
+        var reversed_array = array.reverse();
+        console.log(reversed_array);
+        var parent_node = $('html').children().eq(1);
+        console.log(parent_node.prop('tagName')+' : tagname of html child');
+        for(var i = 1; i<depth; i++)
+            {
+
+                //console.log('Parent Node inside loop: '+parent_node.prop('tagName'));
+                console.log(reversed_array[i]);
+                var child_node = parent_node.children().eq(reversed_array[i]);
+                parent_node = child_node;
+                console.log(parent_node.prop('tagName')+'--- Tag ID '+parent_node.attr('class'));
+
+        }
+        //console.log(html_Child);
+
+        //console.log('tag_name : '+tag_array);
+
+
+        var children = $(body).children().length;
+        console.log('total number of children:  '+children);
+        for(var i=0;i< depth; i++)
+        {
+        var body_children = $(body[0]).children(i).children().length;
+        console.log(body_children);
+        }
 
         //var a = $('body').children().indexOf(0).children();
         //console.log();
@@ -423,17 +453,18 @@ $("*").on('dblclick',function(e) {
 */
 
 //        var product_price = document.getElementById(parent_tag_id).innerText;
-        if(child_tag_id == undefined){
+        var product_price_cl ='';
+        //if(child_tag_id == undefined){
             product_price_cl = document.getElementById(parent_tag_id);
-        }
-        var product_price_cl = document.getElementsByClassName(parent_tag_class);
-        console.log(product_price_cl[product].innerText+'Price H&M');
+        //}
+        //var product_price_cl = document.getElementsByClassName(parent_tag_class);
+        console.log(product_price_cl.innerText);
         //console.log(product_price.split('€'));
         console.log('product price : '+product_price_cl);
         //index items not accurate becuase of Data Index specified in some sites.
-        var sp_price = product_price_cl[product].innerText.split('€');
+        var sp_price = product_price_cl[product];
         //console.log(hasDigitFind(sp_price));
-        console.log(sp_price[0]);
+        console.log(sp_price);
 
         chrome.storage.local.set({'links': URL, 'id': parent_tag_id});
         /*chrome.storage.local.set({'pr_price': product_price_cl});
