@@ -423,7 +423,7 @@ $("*").on('dblclick',function(e) {
 
                 //console.log('Parent Node inside loop: '+parent_node.prop('tagName'));
                 console.log(reversed_array[i]);
-                var child_node = parent_node.children().eq(reversed_array[i]);
+                var child_node = parent_node.children(reversed_array[i]);
                 parent_node = child_node;
                 console.log(parent_node.prop('tagName')+'--- Tag ID '+parent_node.attr('class'));
 
