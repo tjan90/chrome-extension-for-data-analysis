@@ -437,10 +437,11 @@ $("*").on('dblclick',function(e) {
         console.log('outside of loop\nid: '+check_class+'\n class'+check_id);
         //console.log($('#'+check_id || '.'+check_class).text());
         var temp2 = '#product_info';
-        if( == '' || check_class == undefined || check_class == null){
-            console.log($('#'+check_id).text());
+        console.log($(temp2).prop('class'));
+        if( check_id == '' || check_id == undefined || check_id == null){
+            console.log($('.'+check_class).text());
         }else{
-            console.log('else');
+            console.log($('#'+check_id).text());
         }
 
         //console.log('tag_name : '+tag_array);
