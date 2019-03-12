@@ -415,37 +415,27 @@ $("*").on('dblclick',function(e) {
         }// end of for loop////
         console.log(array);
         var reversed_array = array.reverse();
-        console.log(reversed_array);
         var parent_node = $('html').children().eq(1);
-        console.log(parent_node.prop('tagName')+' : tagname of html child');
         var temp = $('body').children().eq(13);
-        console.log(temp.prop('id'));
-        //console.log(reversed_array[i]);
 
+// Looping all the array elements for getting exact child nodes from Body till Price
         for(var i = 2; i<depth; i++)
         {
-
-            //console.log('Parent Node inside loop: '+parent_node.prop('tagName'));
-            var child_node = parent_node.children().eq(reversed_array[i]);
-            //console.log(child_node);
+             var child_node = parent_node.children().eq(reversed_array[i]);
             parent_node = child_node;
-            //console.log(parent_node.prop('tagName')+'--- Tag ID '+parent_node.attr('class'));
             var check_id = parent_node.prop('id')
             var check_class = parent_node.prop('class');
-            console.log('id: '+check_class+'\nclass'+check_id);
+            console.log('id: '+check_id+'\nclass'+check_class);
+
         }
-        console.log('outside of loop\nid: '+check_class+'\n class'+check_id);
-        //console.log($('#'+check_id || '.'+check_class).text());
-        var temp2 = '#product_info';
-        console.log($(temp2).prop('class'));
-        if( check_id == '' || check_id == undefined || check_id == null){
-            console.log($('.'+check_class).text());
+        console.log($(parent_node).text()+'outside of Loop');
+        //testing conditional statments
+        //var temp2 = '#product_info';
+        /*if( check_id == '' || check_id == undefined || check_id == null){
+            console.log($('.'+check_class).text().toString());
         }else{
-            console.log($('#'+check_id).text());
-        }
-
-        //console.log('tag_name : '+tag_array);
-
+            console.log($('#'+check_id).text().toString());
+        }*/
 
         var children = $(body).children().length;
         console.log('total number of children:  '+children);
@@ -467,7 +457,7 @@ $("*").on('dblclick',function(e) {
 */
 
 //        var product_price = document.getElementById(parent_tag_id).innerText;
-        var product_price_cl ='';
+        var product_price_cl = null;
         //if(child_tag_id == undefined){
         product_price_cl = document.getElementById(parent_tag_id);
         //}
@@ -476,7 +466,7 @@ $("*").on('dblclick',function(e) {
         //console.log(product_price.split('€'));
         //console.log('product price : '+product_price_cl);
         //index items not accurate becuase of Data Index specified in some sites.
-        var sp_price = product_price_cl[product];
+        //var sp_price = product_price_cl[product];
         //console.log(hasDigitFind(sp_price));
         //console.log(sp_price);
 
