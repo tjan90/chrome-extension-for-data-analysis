@@ -12,3 +12,7 @@ chrome.storage.local.get(null,function(result) {
        console.log(json_array[i])
    }
 });
+
+chrome.browserAction.onClicked.addListener(function (){
+    console.log('background event triggered')
+})
