@@ -1,6 +1,9 @@
 
-x = '';
-a='';
+/*chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+    if (msg.action == 'SendIt') {
+        alert("Message recieved!");
+    }
+});*/
 //chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
 
 /*
@@ -419,6 +422,7 @@ $("*").on('dblclick',function(e) {
         var temp = $('body').children().eq(13);
 
 // Looping all the array elements for getting exact child nodes from Body till Price
+
         for(var i = 2; i<depth; i++)
         {
              var child_node = parent_node.children().eq(reversed_array[i]);
@@ -470,7 +474,7 @@ $("*").on('dblclick',function(e) {
         //console.log(hasDigitFind(sp_price));
         //console.log(sp_price);
         var json_array = JSON.stringify(array);
-        chrome.storage.local.set({'links': URL, 'id': product_price_cl, 'array': JSON.stringify(array)});
+        chrome.storage.local.set({'links': URL, 'id': product_price_cl, 'array': JSON.stringify(array), 'depth': depth});
         /*chrome.storage.local.set({'pr_price': product_price_cl});
         chrome.storage.local.set({'id': parent_tag_id});
         chrome.storage.local.set({'counter': 1});
@@ -494,12 +498,9 @@ function windowOpen(link, id, pr_price) {
     var win = window.open(link, '_blank')
     win.focus();
     if(win){//win.alert(link+'xxx this is the link')
-        //alert(link+'xxx this is the link');
         var price = document.getElementById(id).innerText;
-        //win.alert('previous price : '+pr_price+'\ncurrent price : '+price);
         var sp_price = price.split('€');
         var sp_pr_price = pr_price.split('€');
-        //win.alert(sp_price+'\n'+sp_pr_price);
         if(price.toString()=== pr_price.toString()){
             alert('price unchanged');
         }
