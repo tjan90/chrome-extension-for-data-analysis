@@ -364,9 +364,9 @@ $("*").on('dblclick',function(e) {
         //var child_tag_id =
 
         parent_tag_id = $(this).closest(child_tag).attr('id');
-       /* if(parent_tag_id == undefined){
-            parent_tag_id = $(this).closest(child_tag).attr('class');
-        }*/
+        /* if(parent_tag_id == undefined){
+             parent_tag_id = $(this).closest(child_tag).attr('class');
+         }*/
         parent_tag_class  = $(this).closest(child_tag).attr('class');
         parent_tag = $(this).closest(child_tag).prop('tagName');
 
@@ -401,7 +401,7 @@ $("*").on('dblclick',function(e) {
         console.log('parent index : '+index);
         console.log('parent class: '+parent_class);
         console.log('Grand parent index: '+Grand_index);
-  //    console.log('Grand Parent Class: '+Grand_class);
+        //    console.log('Grand Parent Class: '+Grand_class);
         console.log('parents : '+parents);
 
 // Array of all the parent indexes////////////////////////////////////////////////
@@ -415,31 +415,35 @@ $("*").on('dblclick',function(e) {
         }// end of for loop////
         console.log(array);
         var reversed_array = array.reverse();
-        console.log(reversed_array);
         var parent_node = $('html').children().eq(1);
-        console.log(parent_node.prop('tagName')+' : tagname of html child');
-        for(var i = 1; i<depth; i++)
-            {
+        var temp = $('body').children().eq(13);
 
-                //console.log('Parent Node inside loop: '+parent_node.prop('tagName'));
-                console.log(reversed_array[i]);
-                var child_node = parent_node.children(reversed_array[i]);
-                parent_node = child_node;
-                console.log(parent_node.prop('tagName')+'--- Tag ID '+parent_node.attr('class'));
+// Looping all the array elements for getting exact child nodes from Body till Price
+        for(var i = 2; i<depth; i++)
+        {
+             var child_node = parent_node.children().eq(reversed_array[i]);
+            parent_node = child_node;
+            var check_id = parent_node.prop('id')
+            var check_class = parent_node.prop('class');
+            console.log('id: '+check_id+'\nclass'+check_class);
 
         }
-        //console.log(html_Child);
-
-        //console.log('tag_name : '+tag_array);
-
+        console.log($(parent_node).text()+'outside of Loop');
+        //testing conditional statments
+        //var temp2 = '#product_info';
+        /*if( check_id == '' || check_id == undefined || check_id == null){
+            console.log($('.'+check_class).text().toString());
+        }else{
+            console.log($('#'+check_id).text().toString());
+        }*/
 
         var children = $(body).children().length;
         console.log('total number of children:  '+children);
-        for(var i=0;i< depth; i++)
+        /*for(var i=0;i< depth; i++)
         {
-        var body_children = $(body[0]).children(i).children().length;
-        console.log(body_children);
-        }
+            var body_children = $(body[0]).children(i).children().length;
+            console.log(body_children);
+        }*/
 
         //var a = $('body').children().indexOf(0).children();
         //console.log();
@@ -453,25 +457,25 @@ $("*").on('dblclick',function(e) {
 */
 
 //        var product_price = document.getElementById(parent_tag_id).innerText;
-        var product_price_cl ='';
+        var product_price_cl = null;
         //if(child_tag_id == undefined){
-            product_price_cl = document.getElementById(parent_tag_id);
+        product_price_cl = $(parent_node).prop('id');
         //}
         //var product_price_cl = document.getElementsByClassName(parent_tag_class);
-        console.log(product_price_cl.innerText);
+        //console.log(product_price_cl.innerText);
         //console.log(product_price.split('€'));
-        console.log('product price : '+product_price_cl);
+        //console.log('product price : '+product_price_cl);
         //index items not accurate becuase of Data Index specified in some sites.
-        var sp_price = product_price_cl[product];
+        //var sp_price = product_price_cl[product];
         //console.log(hasDigitFind(sp_price));
-        console.log(sp_price);
-
-        chrome.storage.local.set({'links': URL, 'id': parent_tag_id});
+        //console.log(sp_price);
+        var json_array = JSON.stringify(array);
+        chrome.storage.local.set({'links': URL, 'id': product_price_cl, 'array': JSON.stringify(array)});
         /*chrome.storage.local.set({'pr_price': product_price_cl});
         chrome.storage.local.set({'id': parent_tag_id});
         chrome.storage.local.set({'counter': 1});
-        */chrome.storage.local.get(['links','id','counter','pr_price'], function(result) {
-            console.log('Value of URL currently is ' + result.links+'\n id of the element'+result.id+'\n counter value: '+result.counter);
+        */chrome.storage.local.get(null, function(result) {
+            console.log('Value of URL currently is ' + result.links+'\n Id: '+result.id+'\n Array: '+result.array);
             //console.log(result.pr_price);
         });
 
@@ -490,16 +494,16 @@ function windowOpen(link, id, pr_price) {
     var win = window.open(link, '_blank')
     win.focus();
     if(win){//win.alert(link+'xxx this is the link')
-    //alert(link+'xxx this is the link');
-    var price = document.getElementById(id).innerText;
-    //win.alert('previous price : '+pr_price+'\ncurrent price : '+price);
-    var sp_price = price.split('€');
-    var sp_pr_price = pr_price.split('€');
-    //win.alert(sp_price+'\n'+sp_pr_price);
+        //alert(link+'xxx this is the link');
+        var price = document.getElementById(id).innerText;
+        //win.alert('previous price : '+pr_price+'\ncurrent price : '+price);
+        var sp_price = price.split('€');
+        var sp_pr_price = pr_price.split('€');
+        //win.alert(sp_price+'\n'+sp_pr_price);
         if(price.toString()=== pr_price.toString()){
-        alert('price unchanged');
-     }
-    win.console.log(price+' previous price');
+            alert('price unchanged');
+        }
+        win.console.log(price+' previous price');
     }
     //win.alert(price+'')
 
@@ -537,4 +541,3 @@ $("*").on('dblclick',function(evt) {
 /*
 var depth = $("#my-element","#ContextContainerID").parents("ul").length;
 */
-
