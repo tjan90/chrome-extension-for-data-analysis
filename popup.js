@@ -459,7 +459,7 @@ $("*").on('dblclick',function(e) {
 //        var product_price = document.getElementById(parent_tag_id).innerText;
         var product_price_cl = null;
         //if(child_tag_id == undefined){
-        product_price_cl = document.getElementById(parent_tag_id);
+        product_price_cl = $(parent_node).prop('id');
         //}
         //var product_price_cl = document.getElementsByClassName(parent_tag_class);
         //console.log(product_price_cl.innerText);
@@ -469,13 +469,13 @@ $("*").on('dblclick',function(e) {
         //var sp_price = product_price_cl[product];
         //console.log(hasDigitFind(sp_price));
         //console.log(sp_price);
-
-        chrome.storage.local.set({'links': URL, 'id': parent_tag_id});
+        var json_array = JSON.stringify(array);
+        chrome.storage.local.set({'links': URL, 'id': product_price_cl, 'array': JSON.stringify(array)});
         /*chrome.storage.local.set({'pr_price': product_price_cl});
         chrome.storage.local.set({'id': parent_tag_id});
         chrome.storage.local.set({'counter': 1});
-        */chrome.storage.local.get(['links','id','counter','pr_price'], function(result) {
-            console.log('Value of URL currently is ' + result.links+'\n id of the element'+result.id+'\n counter value: '+result.counter);
+        */chrome.storage.local.get(null, function(result) {
+            console.log('Value of URL currently is ' + result.links+'\n Id: '+result.id+'\n Array: '+result.array);
             //console.log(result.pr_price);
         });
 

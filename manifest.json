@@ -30,10 +30,12 @@
       "js": [
         "jQuery.js",
         "popup.js"
-      ],
-      "background": {
-        "scripts" : ["background.js"]
-      }
+      ]
+
+
     }
-  ]
+  ],
+  "background": {
+    "scripts" : ["background.js"]
+  }
 }
