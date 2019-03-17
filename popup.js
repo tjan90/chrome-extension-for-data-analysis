@@ -1,6 +1,21 @@
 
 x = '';
 a='';
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log(sender.tab ?
+            "from a content script:" + sender.tab.url :
+            "from the extension");
+        if (request.greeting == "hello")
+            chrome.storage.local.get(null, function(result){
+                console.log(result)
+                var json_array = JSON.parse(result.array);
+                ElementPriceWithHierarchy(json_array,result.depth)
+            })
+            sendResponse({farewell: "goodbye"});
+
+    });
 //chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
 
 /*
@@ -419,7 +434,7 @@ $("*").on('dblclick',function(e) {
         var temp = $('body').children().eq(13);
 
 // Looping all the array elements for getting exact child nodes from Body till Price
-        for(var i = 2; i<depth; i++)
+        /*for(var i = 2; i<depth; i++)
         {
              var child_node = parent_node.children().eq(reversed_array[i]);
             parent_node = child_node;
@@ -427,8 +442,8 @@ $("*").on('dblclick',function(e) {
             var check_class = parent_node.prop('class');
             console.log('id: '+check_id+'\nclass'+check_class);
 
-        }
-        console.log($(parent_node).text()+'outside of Loop');
+        }*/
+        //console.log($(parent_node).text()+'outside of Loop');
         //testing conditional statments
         //var temp2 = '#product_info';
         /*if( check_id == '' || check_id == undefined || check_id == null){
@@ -470,7 +485,7 @@ $("*").on('dblclick',function(e) {
         //console.log(hasDigitFind(sp_price));
         //console.log(sp_price);
         var json_array = JSON.stringify(array);
-        chrome.storage.local.set({'links': URL, 'id': product_price_cl, 'array': JSON.stringify(array)});
+        chrome.storage.local.set({'links': URL, 'id': product_price_cl, 'array': JSON.stringify(array),'depth':depth});
         /*chrome.storage.local.set({'pr_price': product_price_cl});
         chrome.storage.local.set({'id': parent_tag_id});
         chrome.storage.local.set({'counter': 1});
@@ -541,3 +556,21 @@ $("*").on('dblclick',function(evt) {
 /*
 var depth = $("#my-element","#ContextContainerID").parents("ul").length;
 */
+
+function ElementPriceWithHierarchy(array, depth){
+    console.log(array);
+    //var reversed_hierarchy = array.reverse();
+    //console.log('Reversed hierarchy\n'+array);
+    var parent_node = $('html').children().eq(1);
+    console.log('Parent Node:\n'+parent_node.prop('tagName'))
+    //var temp = $('body').children().eq(13);
+
+// Looping all the array elements for getting exact child nodes from Body till Price
+    for(var i = 2; i<depth; i++)
+    {
+        var child_node = parent_node.children().eq(array[i]);
+        parent_node = child_node;
+        console.log('id: '+parent_node.prop('id')+'\nclass: '+parent_node.prop('class'));
+    }
+    console.log('price'+$(parent_node).text());
+}
