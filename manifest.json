@@ -12,8 +12,17 @@
     "tabs",
     "activeTab",
     "*://*/*",
-    "storage"
+    "storage",
+    "identity",
+    "webRequest",
+    "*://*.googleapis.com/*",
+    "*://*.apis.google.com/*"
   ],
+
+  "oauth2": {
+    "client_id": "803126468441-1674nab3bkjslss6vbontq47629b197l.apps.googleusercontent.com",
+    "scopes" : [" https://www.googleapis.com/drive/v2"]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -35,7 +44,8 @@
     }
   ],
   "background": {
-    "scripts" : ["background.js",
-                  "jQuery.js"]
+    "scripts" : [ "background.js",
+                  "jQuery.js",
+                  "jso-master/src/JSO.js"]
   }
 }

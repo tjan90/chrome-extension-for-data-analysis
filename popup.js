@@ -9,11 +9,12 @@ chrome.runtime.onMessage.addListener(
             "from the extension");
         if (request.greeting == "hello")
             chrome.storage.local.get(null, function(result){
-                console.log(result)
-                var json_array = JSON.parse(result.array);
-                ElementPriceWithHierarchy(json_array,result.depth)
+                console.log(result);
+                 a = windowOpen(result.links, result.id, null)
+                //var json_array = JSON.parse(result.array);
+                //ElementPriceWithHierarchy(json_array,result.depth)
             })
-            sendResponse({farewell: "goodbye"});
+        sendResponse({farewell: "price: "+a});
 
     });
 //chrome.storage.local.get(['links','id','counter','pr_price'],function(result) {
@@ -507,8 +508,18 @@ $("*").on('dblclick',function(e) {
 
 function windowOpen(link, id, pr_price) {
     var win = window.open(link, '_blank')
+    var price_return_storage = '';
     win.focus();
-    if(win){//win.alert(link+'xxx this is the link')
+    chrome.storage.local.get(null, function(result){
+        price_return_storage = ElementPriceWithHierarchy(JSON.parse(result.array), result.depth)
+        console.log('This is returned price\n'+price_return_storage);
+        console.log(result)
+        win.alert(price_return_storage);
+        return price_return_storage;
+    })
+
+
+   /* if(win){//win.alert(link+'xxx this is the link')
         //alert(link+'xxx this is the link');
         var price = document.getElementById(id).innerText;
         //win.alert('previous price : '+pr_price+'\ncurrent price : '+price);
@@ -519,7 +530,7 @@ function windowOpen(link, id, pr_price) {
             alert('price unchanged');
         }
         win.console.log(price+' previous price');
-    }
+    }*/
     //win.alert(price+'')
 
 
@@ -572,5 +583,9 @@ function ElementPriceWithHierarchy(array, depth){
         parent_node = child_node;
         console.log('id: '+parent_node.prop('id')+'\nclass: '+parent_node.prop('class'));
     }
-    console.log('price'+$(parent_node).text());
+    //Set the price in local storage so it can be accessed in backgorund
+    var price_return = $(parent_node).text()
+    chrome.storage.local.set({'price':price_return})
+
+    return price_return;
 }
