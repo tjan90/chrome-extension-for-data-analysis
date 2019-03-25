@@ -6,7 +6,8 @@
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "icon.png",
+    "default_popup": "index.html"
   },
   "permissions": [
     "tabs",
@@ -19,10 +20,6 @@
     "*://*.apis.google.com/*"
   ],
 
-  "oauth2": {
-    "client_id": "803126468441-1674nab3bkjslss6vbontq47629b197l.apps.googleusercontent.com",
-    "scopes" : [" https://www.googleapis.com/drive/v2"]
-  },
   "content_scripts": [
     {
       "matches": [
@@ -37,7 +34,8 @@
       ],
       "js": [
         "jQuery.js",
-        "popup.js"
+        "popup.js",
+        "jso-master/dist/jso.js"
       ]
 
 
@@ -45,7 +43,7 @@
   ],
   "background": {
     "scripts" : [ "background.js",
-                  "jQuery.js",
-                  "jso-master/src/JSO.js"]
+                  "jQuery.js"
+                  ]
   }
 }

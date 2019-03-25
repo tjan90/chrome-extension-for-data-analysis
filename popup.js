@@ -2,6 +2,14 @@
 x = '';
 a='';
 
+document.addEventListener('DOMContentLoaded', function() {
+    var checkPageButton = document.getElementById('btn1');
+    checkPageButton.addEventListener('click', function() {
+        _AuthWithClientID()
+        alert('after function run');
+    })
+})
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log(sender.tab ?
@@ -589,3 +597,33 @@ function ElementPriceWithHierarchy(array, depth){
 
     return price_return;
 }
+
+function _AuthWithClientID(){
+    //let _clientID_input = document.getElementById('trace');
+    let _clientID_Text = '803126468441-1674nab3bkjslss6vbontq47629b197l.apps.googleusercontent.com';
+    //alert(_clientID_Text);
+    let _JSOClient = new jso.JSO({
+        providerID: "google",
+        client_id: _clientID_Text,
+        redirect_uri: "http://localhost:8080/",
+        authorization: "https://accounts.google.com/o/oauth2/auth",
+        scopes: { require: ["https://www.googleapis.com/auth/userinfo.profile"],
+                  request: ["https://www.googleapis.com/auth/userinfo.profile"]}
+    })
+
+    _JSOClient.callback();
+
+    let _JSOtoken = _JSOClient.checkToken();
+    alert('_JSOToken:  '+_JSOtoken);
+    if(_JSOtoken == null) {
+        _JSOtoken = _JSOClient.getToken({
+            scopes: {
+                request: ["profile"],
+                require: ["profile"]
+            }
+        });
+    }
+    alert(_JSOClient.checkToken());
+
+}
+

@@ -1,3 +1,4 @@
+
 console.log('background running');
 /*
 chrome.storage.local.get(null,function(result) {
@@ -99,12 +100,3 @@ function makeRequest()
 }
 
 */
-import {JSO, Popup} from 'jso-master'
-
-let client = new JSO({
-    providerID: "google",
-    client_id: "803126468441-1674nab3bkjslss6vbontq47629b197l.apps.googleusercontent.com",
-    authorization: "https://accounts.google.com/o/oauth2/auth",
-    scopes: { request: ["https://www.googleapis.com/auth/userinfo.profile"]}
-
-})
