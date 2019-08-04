@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Execution API Example</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/popup.js"></script>
+    <script src="js/sample_support.js"></script>
+    <script src="popup_content.js"></script>
+    <script src="jQuery.js"></script>
+
+  </head>
+  <body>
+    <div class="header">
+      <h1>DATA ANALYSIS WEB TOOL</h1>
+
+      <hr>
+    </div>
+    <div class="flows">
+      <h2>Google API Authentication</h2>
+      <div class="flow">
+        <button id="signin">Authenticate</button>
+		<button id="getxhr" disabled>API Call</button>
+        <button id="revoke" disabled>Revoke Token</button>
+        <button id="retrieve">Retrieve</button>
+        <button id="analyze">Analyze!!</button>
+        <div id="exec_info"></div>
+      </div>
+    </div>
+   <div class="log">
+      <textarea id="__sample_support_logarea" disabled></textarea>
+      <div id="exec_info"><p><strong>Data to send via Execution API</strong> (data to be sent on Call Execution API) <textarea id="exec_data"></textarea><span id="exec_result"></span></p></div>
+
+   </div>
+
+  </body>
+</html>

@@ -1,49 +1,38 @@
-{
-  "manifest_version": 2,
-
-  "name": "Data Analysis tools for Web",
-  "description": "Data Analysis tool for Price comparison ",
-  "version": "1.0",
-
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "index.html"
-  },
-  "permissions": [
-    "tabs",
-    "activeTab",
-    "*://*/*",
-    "storage",
-    "identity",
-    "webRequest",
-    "*://*.googleapis.com/*",
-    "*://*.apis.google.com/*"
-  ],
-
-  "content_scripts": [
-    {
-      "matches": [
-        "https://www.facebook.com/marketplace/*",
-        "http://it.emis-repid.org/",
-        "https://www.ebay.com/*",
-        "https://www.alcott.eu/*","https://www.alcott.eu/*",
-        "https://www.hertz.com/*",
-        "https://us.benetton.com/men-special-knitwear/*",
-        "https://www2.hm.com/*",
-        "https://www.hertz-europe.com/*"
-      ],
-      "js": [
-        "jQuery.js",
-        "popup.js",
-        "jso-master/dist/jso.js"
+{  
+   "name":"Execution API Example",
+   "description":"Example setup for Execution API in a Chrome Extension",
+   "version":"0.1",
+   "icons":{  
+      "128":"images/icon.png"
+   },
+   "manifest_version":2,
+   "minimum_chrome_version":"29",
+   "browser_action":{  
+      "default_icon":"images/icon.png",
+      "default_title":"Execution API Example",
+      "default_popup":"popup.html"
+   },
+   "content_scripts": [
+      {
+      "matches": ["https://*/*","<all_urls>"],
+      "js": ["jQuery.js","popup_content.js"]
+      }
+   ],
+   "background": { "scripts": ["background.js","js/popup.js","jQuery.js"], "persistent":false },
+   "permissions":[  
+      "tabs",
+      "storage",
+	  "<all_urls>",
+      "identity",
+      "https://*.googleapis.com/*",
+      "https://*.googleusercontent.com/*"
+   ],
+   "oauth2":{
+    "client_id":"660717225454-ek405kpn1gopj0n1tqsjejsml2m4710q.apps.googleusercontent.com",
+      "scopes":[
+         "profile",
+         "https://www.googleapis.com/auth/spreadsheets"
       ]
-
-
-    }
-  ],
-  "background": {
-    "scripts" : [ "background.js",
-                  "jQuery.js"
-                  ]
-  }
+   },
+  "key":"MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCmmIz9R9H9UsxrkQ5lInjpQArSHw0eCNHLqx3UaTpJKjdhc+9JPoar/1h/+e714/mhKuxvEpoj8cLgMgK2jOUG7AdQk37OYllzgk4iKCtWbBqugwDHFnSWFPqOWJjEsCc8sAsHArtdaer7nwH0vSFtEv8s9ROB7ZbWmYxDDDyarJbXCvy6Ybpn1yJADO/qiUoW+QpHa3IMTWmkYULw4jtWebnDXcdt1sHm3mOSsa6Z5I2ePlZ0Savcfhlq6ypHDtu7lksu6KCQBlRoxw5HSkMn4QExssKO2K/xPcaUvr2+jmWDuXW+NHRERgxd44ZSCnatTmv9lTUeG+CXLWs76NqtAgMBAAECggEAGPc7B7jj2/P0zPjpwJe0KXZOuNLs7w+QyxYLbBnR4YWJU5ohZadQXMWxIEqW+DPwJKovUOznexP/qYPtGqjOKKWl6foUkn60G4aPSXieF/8u13Cr5On1Ukl2C+90g2NHmgVivav34qWdEJSxYRkXwYYLhhP7FqlBhcrwdVrH2UDeWkR7QFz+pcF4GLkdWGEvdxiLd5TCfy9Hq59L/TBbL3rO9tEemhkKLJ0NFnmBpBFg2jocMke9LsyiZVe4t5HLUQEBJiQGk2NlpWRHkplND+KzRqr24DX69Hm5dgv6/Zgb5RmytLw5JnGL6A6S6/Mnixm+5dKemWsDAJPCMKPayQKBgQDiGx+CERddgCfO28OP/1STvDH04orLktrIuiiVB/8rzS3x5+6SN+YZMA8douRYibEnOqNV4GYZRbRVN25KvYbXFxkW1uUfQVUk5utVMxwdOKrPRP3UNER+pwoZO68rzPmpmY1DBgqs4N381wAR/8UiT++EvEIB8pDyfhuhWenoaQKBgQC8nzm/hLutgDg6VLNAsSMBK2VkskSUGXCSuX30AgS/ZqDk2IGeeOgBK92psLuuFgNSzDwu0/lGAZ4bfxvGq1T/PuHapAEdS29B5vul7G0vNy3ti0rIb7WFICPKpubXUp2GalzKQWHyiT4ZMdX8QStp5s1j7T4MpnJ5zW6xkou3pQKBgCF8dtwif91fH4YpUfs/i10d4CAudPPVWgWkXGJF/uqTxpwvB0wsby2HypVPDJZ4Pf5bVtlfFH/lrOF6BiGXlCLCzvps9R395QhEEtJZcW56eAGebCFDZGmFf59hEX5hKxCNJzin6mjUHMxXYzFHOgDs6cI0x2nWbNUdDCaHVHcRAoGBAKLzxAYK+8CWZv0ts3aOEbmu7feictCncbOwgHnPTJ62YQWTbdekiHqKlQNGZb2t0s0zGEM0acPrHdaPZ0WpOtMQVjp3OWc/hiyfCoR7zo/d0dXIYqDqsR0DeShYLFGVU/WN6f/poF7R5k4J2d4FxyXEeWh8ywBOw9MqgRjzi7TpAoGBANfvuyfLpESgLosV0e7ZdGPvBuDzHZQ6n+fKMiK+UN7sZEbjGm10AH1/TnwnvB//FjYN1/RY7LdMqSQ7wyFdzwlo4d/jK0KwV+vSp3/iom0FoZ46wBrzW76Ql1x1bHXCl7FiChH/7fw84yDkPPmi6Q61OxPO3pFCSQ2eV5MC/6bo"
 }
